@@ -10,8 +10,8 @@
 import Foundation
 
 //Create the ToDoItem class in this file
-class ToDoItem {
-    
+class ToDoItem: Identifiable {
+    var id = UUID ()
     var title = ""
     var isImportant = false
     

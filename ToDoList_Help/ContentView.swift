@@ -14,9 +14,10 @@ struct ContentView: View {
     //In Iteration 2, add @Environment here
     
     //Add a State property called toDoItems that holds an empty array of ToDoItems
-    
+    @State var toDoItems:
+        [ToDoItem] = []
     //Add a State property called showNewTask that is set to false
-    
+    @State private var showNewTask = false
     var body: some View {
         VStack {
             HStack {
@@ -24,19 +25,35 @@ struct ContentView: View {
                 Text ("To Do List")
                     .font(.title)
                     .fontWeight(.bold)
+                    .foregroundColor(Color(red: 0.278, green: 0.167, blue: 0.167))
                 //Add a Spacer here
                 Spacer ()
                 //Add a Button here with Text("+") and delete any code in the action
                 Button (action: {
-                    
+                    self.showNewTask = true
                 }) {
                     Text ("+")
+                        .font(.largeTitle)
                 }
             }
             //Add a padding modifier here
+            .padding()
             //Add a Spacer here
-            
+            Spacer ()
             //Add a List View here
+            
+            List {
+                    ForEach (toDoItems) { toDoItem in
+                        if toDoItem.isImportant == true {
+                            Text("‼️" + toDoItem.title)
+                                .foregroundColor(Color(red: 0.278, green: 0.167, blue: 0.167))
+                        } else {
+                            Text(toDoItem.title)
+                        }
+                        }
+            }
+            
+
                 //In Iteration 1, delte the Text View and add an if statement inside the list view that indicates to add !! to ToDoItems that are marked important
                     //In Iteration 2, add optionals to the Text views in the if statement
                         //In Iteration 2, add the onDelete modifier before the closing bracket of the For Each statement
@@ -46,7 +63,11 @@ struct ContentView: View {
             //In Iteration 1, bind toDoItems: $toDoItems in this if statement
             //In Iteration 1, bind showNewTask: $showNewTask in this if statement
             //In Iteration 2, delete the toDoItems: $toDoItems binding
-
+        if showNewTask {
+            NewToDoView (title:"", isImportant: false, toDoItems : $toDoItems,
+                showNewTask: $showNewTask
+                         )
+        }
 
     }
     //In Iteration 2, add the deleteTask function here
